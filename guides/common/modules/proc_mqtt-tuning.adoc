@@ -7,7 +7,7 @@ Katello-agent has provided an alternative for a long time that worked in an envi
 
 The solution uses MQTT as its messaging protocol and includes an MQTT client running on each Host. In orderto tune the MQTT, you can follow the following procedure on the Satellite or capsule server:
 
-.Procedure
+.*Procedure*
 . Enable the feature using: `satellite-installer --foreman-proxy-plugin-remote-execution-script-mode=pull-mqtt` (this will change the ReX transport mode for the Satellite or capsule from the default SSH one to MQTT). It’s important to mention that one Satellite/capsule server can only use one transport mode: SSH or MQTT
 
 . In order to bump the default number of clients, create the following system unit definition file and set its contents as specified in the below given example (this will allow the `mosquitto` server to handle ~5000 clients):
