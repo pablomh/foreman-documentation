@@ -1,18 +1,17 @@
 [id="REX_pull_based_provider_{context}"]
 = REX pull based provider 
 
-Remote Execution has been around for a while now and has served SSH-based and Ansible execution very well. 
-In many environments these are not options due to either security or networking concerns.
+Remote Execution has been around for a while now and has served SSH-based and Ansible execution very well.
+ 
+Now,foreman have a ‘pull’ based provider that has the features of REX but with a deployment model similar tokatello-agent. 
 
-Katello-agent has provided an alternative for a long time that worked in an environment where SSH was not available or the Foreman/Katello server or smart proxies did not have the ability to connect to a client. 
-However katello-agent only supported a small set of actions around updating packages.
-There has been a long desire to create a ‘pull’ based provider that has the features of REX but with a deployment model similar tokatello-agent. 
+This uses MQTT as its messaging protocol and includes an MQTT client running on each Host.
 
-The solution uses MQTT as its messaging protocol and includes an MQTT client running on each Host.
-In order to tune the MQTT, you can follow the following procedure on the Satellite or capsule server:
+In order to tune the MQTT, you can follow the following procedure on the Foreman server:
 
 .Procedure
-. Enable the feature using: `satellite-installer --foreman-proxy-plugin-remote-execution-script-mode=pull-mqtt` (this will change the ReX transport mode for the Satellite or capsule from the default SSH one to MQTT). It’s important to mention that one Satellite or Capsule server can only use one transport mode: SSH or MQTT
+. Enable the feature using: `foreman-installer --foreman-proxy-plugin-remote-execution-script-mode=pull-mqtt` (this will change the ReX transport mode for the Foreman from the default SSH one to MQTT).
+  It’s important to mention that one Foreman server can only use one transport mode: SSH or MQTT
 
 . To bump the default number of clients, create the following system unit definition file and set its contents as specified in the below given example (this will allow the `mosquitto` server to handle ~5000 clients):
 +
