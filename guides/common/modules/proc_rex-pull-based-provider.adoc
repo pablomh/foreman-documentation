@@ -1,19 +1,19 @@
 [id="REX_pull_based_provider_{context}"]
 = REX pull based provider 
 
-Remote Execution has been around for a while now and has served SSH-based and Ansible execution very well.
+Remote Execution has been around for a while now and has served SSH-based execution very well.
  
-Now,foreman have a ‘pull’ based provider that has the features of REX but with a deployment model similar tokatello-agent. 
+Now, {Project} has a ‘pull’ based provider that has the features of REX but with a deployment model similar to katello-agent. 
 
-This uses MQTT as its messaging protocol and includes an MQTT client running on each Host.
+This provider uses MQTT as its messaging protocol and includes an MQTT client running on each content host.
 
-In order to tune the MQTT, you can follow the following procedure on the Foreman server:
+In order to tune the MQTT server (`mosquitto`) and increase the number of clients (content hosts) connnected to it, you can follow the following procedure on the {Project} server:
 
 .Procedure
-. Enable the feature using: `foreman-installer --foreman-proxy-plugin-remote-execution-script-mode=pull-mqtt` (this will change the ReX transport mode for the Foreman from the default SSH one to MQTT).
-  It’s important to mention that one Foreman server can only use one transport mode: SSH or MQTT
+. Enable the feature using: `{foreman-installer} --foreman-proxy-plugin-remote-execution-script-mode pull-mqtt` (this will change the REX transport mode from the default SSH one to MQTT).
+  It's important to mention that one {Project} server ({ProjectServer} or {SmartProxyServer}) can only use one transport mode: SSH or MQTT.
 
-. To bump the default number of clients, create the following system unit definition file and set its contents as specified in the below given example (this will allow the `mosquitto` server to handle ~5000 clients):
+. To increase the default number of clients accepted by the MQTT server, create the following system unit definition file and set its contents as specified in the below given example (this will allow the `mosquitto` server to handle ~5000 clients):
 +
 [options="nowrap", subs="+quotes,verbatim,attributes"]
 ----
@@ -22,10 +22,10 @@ cat >/etc/systemd/system/mosquitto.service.d/limits.conf <<__EOF__
 LimitNOFILE=5000
 __EOF__
 ----
-. Once the file has been edited, the following commands need to be run to make the tunings come into effect:
+. Once the file has been edited, the following commands need to be run to make the tuning come into effect:
 +
 [options="nowrap", subs="+quotes,verbatim,attributes"]
 ----
 systemctl daemon-reload
-systemctl restart mosquitto
+systemctl restart mosquitto.service
 ----
