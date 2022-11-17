@@ -13,7 +13,7 @@ In order to tune the MQTT server (`mosquitto`) and increase the number of client
 . Enable the feature using: `{foreman-installer} --foreman-proxy-plugin-remote-execution-script-mode pull-mqtt` (this will change the REX transport mode from the default SSH one to MQTT).
   It's important to mention that one {Project} server ({ProjectServer} or {SmartProxyServer}) can only use one transport mode: SSH or MQTT.
 
-. To increase the default number of clients accepted by the MQTT server, create the following system unit definition file and set its contents as specified in the below given example (this will allow the `mosquitto` server to handle ~5000 clients):
+. To increase the default number of clients accepted by the MQTT server, create the following system unit definition file and set its contents as specified in the below given example (this will allow the `mosquitto` service to handle ~5000 clients):
 +
 [options="nowrap", subs="+quotes,verbatim,attributes"]
 ----
