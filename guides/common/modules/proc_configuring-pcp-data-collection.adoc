@@ -53,7 +53,7 @@ endif::[]
 ----
 # {foreman-installer} --foreman-telemetry-prometheus-enabled true
 ----
-. Configure PCP to collect data from {Project}:
+. Configure PCP to collect data from {Project} (ensure that the correct FQDN is used):
 +
 [options="nowrap", subs="verbatim,quotes,attributes"]
 ----
